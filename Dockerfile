@@ -30,4 +30,4 @@ RUN npm set progress=false && \
 COPY --from=base /usr/src/app/build ./build
 
 
-CMD ["pm2-runtime", "ecosystem.config.js", "--env", "development"]
+CMD ["pm2-runtime", "ecosystem.config.js", "--env", "production"]
