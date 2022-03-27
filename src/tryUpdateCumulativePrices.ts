@@ -1,5 +1,5 @@
 import { updateCumulativePrices } from './index';
-import { utils } from 'ethers';
+import { BigNumber, utils } from 'ethers';
 import { Fuse } from '@midas-capital/sdk';
 import { TransactionResponse } from '@ethersproject/abstract-provider';
 import { getPriceOracle } from './utils';
@@ -35,7 +35,6 @@ export default async function tryUpdateCumulativePrices(
       lastTransactionSent = 0;
     }
   }
-  console.log(rootPriceOracleContract.address);
   // Get pairs, min periods, and deviation thresholds
   let pairs = [];
   let baseTokens = [];
@@ -46,7 +45,10 @@ export default async function tryUpdateCumulativePrices(
     const parts = supportedPairs[i].split('|');
     pairs[i] = parts[0];
     baseTokens[i] = parts[1];
-    minPeriods[i] = parts[2] !== undefined ? parts[2] : process.env.DEFAULT_MIN_PERIOD;
+    minPeriods[i] =
+      parts[2] !== undefined
+        ? BigNumber.from(parts[2])
+        : BigNumber.from(process.env.DEFAULT_MIN_PERIOD);
 
     deviationThresholds[i] = utils.parseEther(
       parts[3] !== undefined ? parts[3] : process.env.DEFAULT_DEVIATION_THRESHOLD!

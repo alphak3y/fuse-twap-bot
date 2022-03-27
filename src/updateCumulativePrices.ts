@@ -22,7 +22,7 @@ export default async function updateCumulativePrices(
     method = 'update(address)';
     args = [pairs[0]];
   }
-  console.log(pairs);
+  // @ts-ignore
   const data = rootPriceOracleContract.interface.encodeFunctionData(method, args);
 
   // Build transaction
