@@ -1,7 +1,6 @@
 import { TransactionRequest } from '@ethersproject/providers';
 import { Fuse } from '@midas-capital/sdk';
 import { ethers, Wallet } from 'ethers';
-import { UniswapTwapPriceOracleV2Root } from '@midas-capital/sdk/typechain/UniswapTwapPriceOracleV2Root';
 
 export async function fetchGasLimitForTransaction(
   fuse: Fuse,
@@ -18,9 +17,5 @@ export async function fetchGasLimitForTransaction(
 export async function getPriceOracle(fuse: Fuse) {
   const uniswapTwap = fuse.chainDeployment.UniswapTwapPriceOracleV2Root;
   const signer = new Wallet(process.env.ETHEREUM_ADMIN_PRIVATE_KEY!, fuse.provider);
-  return new ethers.Contract(
-    uniswapTwap.address,
-    uniswapTwap.abi,
-    signer
-  ) as UniswapTwapPriceOracleV2Root;
+  return new ethers.Contract(uniswapTwap.address, uniswapTwap.abi, signer);
 }
