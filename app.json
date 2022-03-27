@@ -1,0 +1,4 @@
+{
+  "name": "Prime TWAP Bot",
+  "description": "Writes price feeds for collateral vaults on master chain."
+}
